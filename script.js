@@ -84,14 +84,17 @@ function createBox(item){
 //initial speech synth to unable the text to make the sound
 const message = new SpeechSynthesisUtterance();
 
-console.log(message)
 function setTextMessage(text){
     message.text = text;
-    console.log(message)
 }
 
 function speakText(){
     speechSynthesis.speak(message);
+}
+
+function setVoice(e){
+    message.voice = voices.find(voice => voice.name === e.target.value);
+    console.log(message)
 }
 
 //store voices
@@ -120,5 +123,11 @@ closeBtn.addEventListener('click', () =>{
 
 speechSynthesis.addEventListener('voiceschanged', getVoices);
 
+//change voice 
+voicesSelect.addEventListener('change', setVoice);
 
-// getVoices()
+//read the user's text 
+readBtn.addEventListener('click', () => {
+    setTextMessage(textarea.value);
+    speakText()
+})
