@@ -69,7 +69,29 @@ function createBox(item){
       <p class="info">${text}</p>
     `;
 
+    box.addEventListener('click', () => {
+        setTextMessage(text);
+        speakText();
+
+        //add and remove the active effect 
+        box.classList.add('active');
+        setTimeout(() => box.classList.remove('active'), 800);
+    })
+
     main.appendChild(box);
+}
+
+//initial speech synth to unable the text to make the sound
+const message = new SpeechSynthesisUtterance();
+
+console.log(message)
+function setTextMessage(text){
+    message.text = text;
+    console.log(message)
+}
+
+function speakText(){
+    speechSynthesis.speak(message);
 }
 
 //store voices
